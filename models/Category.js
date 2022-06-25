@@ -5,6 +5,9 @@ const CategorySchema = Schema({
     name:{
         type:String,
     },
+    icon:{
+        type:String,
+    },
     brands:[{type:Schema.Types.ObjectId,ref:'Brands'}],
     models:[{type:Schema.Types.ObjectId,ref:'Models'}],
     cars:[{type:Schema.Types.ObjectId,ref:'Cars'}],

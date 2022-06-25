@@ -1,21 +1,23 @@
 const Car = require('../models/Car')
 const Category = require('../models/Category')
+const Brand = require('../models/Brand')
+const Model = require('../models/Model')
 
 
 const all = (req, res) => {
     Car.find()
-        .populate('brand', 'name')
-        .populate('model', 'name')
-        .populate('category', 'name')
-        .populate('gear', 'name')
-        .populate('fuel', 'name')
-        .populate('case', 'name')
-        .populate('traction', 'name')
-        .populate('fromWho', 'name')
-        .populate('year', 'year')
-        .populate('city', 'city')
-        .populate('district', 'district')
-        .populate('street', 'street')
+        // .populate('brand', 'name')
+        // .populate('model', 'name')
+        // .populate('category', 'name')
+        // .populate('gear', 'name')
+        // .populate('fuel', 'name')
+        // .populate('case', 'name')
+        // .populate('traction', 'name')
+        // .populate('fromWho', 'name')
+        // .populate('year', 'year')
+        // .populate('city', 'city')
+        // .populate('district', 'district')
+        // .populate('street', 'street')
         .then((result) => {
             res.send(result)
         }).catch((err) => {
@@ -49,7 +51,7 @@ const add = (req, res) => {
 
     car.save()
         .then(async (result) => {
-            await Category.findByIdAndUpdate(result.category, { $push: { cars: result.id } })
+            await Category.findByIdAndUpdate(result.category, { $push: { cars: result._id } })
             await Brand.findByIdAndUpdate(result.brand, { $push: { cars: result.id } })
             await Model.findByIdAndUpdate(result.model, { $push: { cars: result.id } })
             await res.json({ status: true, message: 'Created' })

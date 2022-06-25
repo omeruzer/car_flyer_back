@@ -5,6 +5,9 @@ const Category = require('../models/Category')
 
 const all = (req, res) => {
     Model.find()
+    .populate('brand','name')
+    .populate('category','name')
+    .populate('cars')
         .then((result) => {
             res.send(result)
         }).catch((err) => {

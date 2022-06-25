@@ -21,6 +21,9 @@ const CarSchema = Schema({
     fuel_tank:{
         type:Number
     },
+    price:{
+        type:Number
+    },
     brand:{type:Schema.Types.ObjectId,ref:'Brands'},
     model:{type:Schema.Types.ObjectId,ref:'Models'},
     category:{type:Schema.Types.ObjectId,ref:'Categories'},

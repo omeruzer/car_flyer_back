@@ -3,6 +3,10 @@ const Category = require('../models/Category')
 
 const all = (req, res) => {
     Category.find()
+    .select('name icon brands cars')
+    .populate('brands','name')
+    .populate('cars')
+    // .populate('models')
         .then((result) => {
             res.send(result)
         }).catch((err) => {
