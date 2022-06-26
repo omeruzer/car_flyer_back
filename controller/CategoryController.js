@@ -16,6 +16,12 @@ const all = (req, res) => {
 
 const detail = (req, res) => {
     Category.findById(req.params.id)
+    .select('name icon cars brands')
+    .populate('cars')
+    .populate([{ path: 'cars', populate: { path: 'brand' ,select:'name'}}])
+    .populate([{ path: 'cars', populate: { path: 'model' ,select:'name'}}])
+    .populate([{ path: 'cars', populate: { path: 'year' ,select:'year'}}])
+    .populate([{ path: 'cars', populate: { path: 'city' ,select:'city'}}])
         .then((result) => {
             res.send(result)
         }).catch((err) => {

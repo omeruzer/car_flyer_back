@@ -5,7 +5,7 @@ const Model = require('../models/Model')
 
 
 const all = (req, res) => {
-    Car.find()
+    Car.find().sort({date:-1})
         .populate('brand', 'name')
         .populate('model', 'name')
         .populate('category', 'name')

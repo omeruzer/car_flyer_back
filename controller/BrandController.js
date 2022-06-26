@@ -16,7 +16,13 @@ const all = (req, res) => {
 }
 const detail = (req, res) => {
     Brand.findById(req.params.id)
-        .then((result) => {
+    .populate('cars')
+    .populate('models','name')
+    .populate([{ path: 'cars', populate: { path: 'brand' ,select:'name'}}])
+    .populate([{ path: 'cars', populate: { path: 'model' ,select:'name'}}])
+    .populate([{ path: 'cars', populate: { path: 'year' ,select:'year'}}])
+    .populate([{ path: 'cars', populate: { path: 'city' ,select:'city'}}])
+            .then((result) => {
             res.send(result)
         }).catch((err) => {
             res.send(err)
