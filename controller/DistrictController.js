@@ -4,6 +4,7 @@ const District = require('../models/District')
 
 const all = (req, res) => {
     District.find()
+    .populate('streets','street')
         .then((result) => {
             res.send(result)
         }).catch((err) => {
@@ -13,6 +14,7 @@ const all = (req, res) => {
 
 const detail = (req, res) => {
     District.findById(req.params.id)
+    .populate('streets','street')
         .then((result) => {
             res.send(result)
         }).catch((err) => {

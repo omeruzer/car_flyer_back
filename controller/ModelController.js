@@ -5,9 +5,9 @@ const Category = require('../models/Category')
 
 const all = (req, res) => {
     Model.find()
-    .populate('brand','name')
-    .populate('category','name')
-    .populate('cars')
+        .populate('brand', 'name')
+        .populate('category', 'name')
+        .populate('cars')
         .then((result) => {
             res.send(result)
         }).catch((err) => {
@@ -17,6 +17,11 @@ const all = (req, res) => {
 
 const detail = (req, res) => {
     Model.findById(req.params.id)
+        .populate("cars")
+        .populate([{ path: 'cars', populate: { path: 'brand', select: 'name' } }])
+        .populate([{ path: 'cars', populate: { path: 'model', select: 'name' } }])
+        .populate([{ path: 'cars', populate: { path: 'year', select: 'year' } }])
+        .populate([{ path: 'cars', populate: { path: 'city', select: 'city' } }])
         .then((result) => {
             res.send(result)
         }).catch((err) => {
@@ -32,9 +37,9 @@ const add = (req, res) => {
         .then(async (result) => {
             await Category.findByIdAndUpdate(result.category, { $push: { models: result.id } })
             await Brand.findByIdAndUpdate(result.brand, { $push: { models: result.id } })
-            await res.json(result) 
+            await res.json(result)
 
-                
+
         }).catch((err) => {
             res.json(err)
 

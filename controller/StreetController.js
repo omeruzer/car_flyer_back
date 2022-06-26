@@ -1,5 +1,6 @@
 const Street = require('../models/Street')
-const Category = require('../models/Category')
+const Category = require('../models/Category');
+const District = require('../models/District');
 
 
 const all = (req, res) => {
@@ -12,6 +13,7 @@ const all = (req, res) => {
 }
 const detail = (req, res) => {
     Street.findById(req.params.id)
+
         .then((result) => {
             res.send(result)
         }).catch((err) => {
@@ -24,8 +26,9 @@ const add = (req, res) => {
     const street = new Street(req.body)
 
     street.save()
-        .then((result) => {
-            res.json(result)
+        .then(async (result) => {
+            await District.findByIdAndUpdate(result.district, { $push: { streets: result.id } })
+            await res.json(result)
         }).catch((err) => {
             res.json(err)
 

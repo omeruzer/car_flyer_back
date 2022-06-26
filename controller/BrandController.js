@@ -34,8 +34,9 @@ const add = (req, res) => {
     const brand = new Brand(req.body)
 
     brand.save()
-        .then((result) => {
-            Category.findByIdAndUpdate(result.category, { $push: { brands: result.id } })
+        .then(async (result) => {
+            await Category.findByIdAndUpdate(result.category, { $push: { brands: result.id } })
+            await res.json(result)
         }).catch((err) => {
             res.json(err)
 

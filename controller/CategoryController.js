@@ -17,6 +17,7 @@ const all = (req, res) => {
 const detail = (req, res) => {
     Category.findById(req.params.id)
     .select('name icon cars brands')
+    .populate('brands','name')
     .populate('cars')
     .populate([{ path: 'cars', populate: { path: 'brand' ,select:'name'}}])
     .populate([{ path: 'cars', populate: { path: 'model' ,select:'name'}}])

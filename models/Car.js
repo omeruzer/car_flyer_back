@@ -24,6 +24,12 @@ const CarSchema = Schema({
     price:{
         type:Number
     },
+    contact_name:{
+        type:String
+    },
+    contact_phone:{
+        type:Number
+    },
     brand:{type:Schema.Types.ObjectId,ref:'Brands'},
     model:{type:Schema.Types.ObjectId,ref:'Models'},
     category:{type:Schema.Types.ObjectId,ref:'Categories'},

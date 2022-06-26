@@ -54,7 +54,7 @@ const add = (req, res) => {
             await Category.findByIdAndUpdate(result.category, { $push: { cars: result._id } })
             await Brand.findByIdAndUpdate(result.brand, { $push: { cars: result.id } })
             await Model.findByIdAndUpdate(result.model, { $push: { cars: result.id } })
-            await res.json({ status: true, message: 'Created' })
+            await res.json(result)
         }).catch((err) => {
             res.json(err)
 
